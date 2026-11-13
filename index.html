@@ -9,19 +9,42 @@
            align-items: center; justify-content: center; background: #e8f4ff;
            font-family: system-ui, sans-serif; }
     h1 { color: #2d5a3d; }
+
+    /* Dancing sunflower */
+    .dance { transform-origin: 50% 100%; animation: sway 2s ease-in-out infinite; }
+    .petals-back, .petals-front, .leaf { transform-box: fill-box; transform-origin: center; }
+    .petals-back  { animation: spin-cw 8s linear infinite; }
+    .petals-front { animation: spin-ccw 8s linear infinite; }
+    .leaf-right { transform-origin: 0% 50%; animation: flap-r 1s ease-in-out infinite alternate; }
+    .leaf-left  { transform-origin: 100% 50%; animation: flap-l 1s ease-in-out infinite alternate; }
+
+    @keyframes sway {
+      0%, 100% { transform: rotate(-8deg) translateY(0); }
+      25%      { transform: rotate(0deg) translateY(-10px); }
+      50%      { transform: rotate(8deg) translateY(0); }
+      75%      { transform: rotate(0deg) translateY(-10px); }
+    }
+    @keyframes spin-cw  { to { transform: rotate(360deg); } }
+    @keyframes spin-ccw { to { transform: rotate(-360deg); } }
+    @keyframes flap-r { from { transform: rotate(-10deg); } to { transform: rotate(12deg); } }
+    @keyframes flap-l { from { transform: rotate(10deg); } to { transform: rotate(-12deg); } }
+
+    @media (prefers-reduced-motion: reduce) {
+      .dance, .petals-back, .petals-front, .leaf-left, .leaf-right { animation: none; }
+    }
   </style>
 </head>
 <body>
   <h1>Hello, World!</h1>
-  <svg width="260" height="320" viewBox="0 0 260 320" xmlns="http://www.w3.org/2000/svg" aria-label="A sunflower">
+  <svg class="dance" width="260" height="320" viewBox="0 0 260 320" xmlns="http://www.w3.org/2000/svg" aria-label="A dancing sunflower">
     <!-- stem -->
     <path d="M130 170 C124 220 136 270 130 315" stroke="#3a8f4f" stroke-width="9" fill="none" stroke-linecap="round"/>
     <!-- leaves -->
-    <path d="M132 255 C175 232 205 242 215 265 C180 276 152 272 132 255 Z" fill="#4caf63"/>
-    <path d="M128 225 C85 202 55 212 45 235 C80 246 108 242 128 225 Z" fill="#4caf63"/>
+    <path class="leaf leaf-right" d="M132 255 C175 232 205 242 215 265 C180 276 152 272 132 255 Z" fill="#4caf63"/>
+    <path class="leaf leaf-left" d="M128 225 C85 202 55 212 45 235 C80 246 108 242 128 225 Z" fill="#4caf63"/>
     <g transform="translate(130 110)">
       <!-- back petals -->
-      <g fill="#f5a800">
+      <g class="petals-back" fill="#f5a800">
         <ellipse rx="13" ry="38" cy="-62"/>
         <ellipse rx="13" ry="38" cy="-62" transform="rotate(30)"/>
         <ellipse rx="13" ry="38" cy="-62" transform="rotate(60)"/>
@@ -36,7 +59,7 @@
         <ellipse rx="13" ry="38" cy="-62" transform="rotate(330)"/>
       </g>
       <!-- front petals -->
-      <g fill="#ffd21f">
+      <g class="petals-front" fill="#ffd21f">
         <ellipse rx="13" ry="38" cy="-62" transform="rotate(15)"/>
         <ellipse rx="13" ry="38" cy="-62" transform="rotate(45)"/>
         <ellipse rx="13" ry="38" cy="-62" transform="rotate(75)"/>
