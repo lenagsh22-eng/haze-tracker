@@ -2,97 +2,98 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Hello, World</title>
-  <style>
-    body { margin: 0; min-height: 100vh; display: flex; flex-direction: column;
-           align-items: center; justify-content: center; background: #e8f4ff;
-           font-family: system-ui, sans-serif; }
-    h1 { color: #2d5a3d; }
-
-    /* Dancing sunflower */
-    .dance { transform-origin: 50% 100%; animation: sway 2s ease-in-out infinite; }
-    .petals-back, .petals-front, .leaf { transform-box: fill-box; transform-origin: center; }
-    .petals-back  { animation: spin-cw 8s linear infinite; }
-    .petals-front { animation: spin-ccw 8s linear infinite; }
-    .leaf-right { transform-origin: 0% 50%; animation: flap-r 1s ease-in-out infinite alternate; }
-    .leaf-left  { transform-origin: 100% 50%; animation: flap-l 1s ease-in-out infinite alternate; }
-
-    @keyframes sway {
-      0%, 100% { transform: rotate(-8deg) translateY(0); }
-      25%      { transform: rotate(0deg) translateY(-10px); }
-      50%      { transform: rotate(8deg) translateY(0); }
-      75%      { transform: rotate(0deg) translateY(-10px); }
-    }
-    @keyframes spin-cw  { to { transform: rotate(360deg); } }
-    @keyframes spin-ccw { to { transform: rotate(-360deg); } }
-    @keyframes flap-r { from { transform: rotate(-10deg); } to { transform: rotate(12deg); } }
-    @keyframes flap-l { from { transform: rotate(10deg); } to { transform: rotate(-12deg); } }
-
-    @media (prefers-reduced-motion: reduce) {
-      .dance, .petals-back, .petals-front, .leaf-left, .leaf-right { animation: none; }
-    }
-  </style>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Haze Tracker</title>
+  <meta name="description" content="Live PSI and PM2.5 readings for Singapore's regions, with alerts when haze crosses your threshold.">
+  <meta name="theme-color" content="#13243b">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="Haze">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>Hello, World!</h1>
-  <svg class="dance" width="260" height="320" viewBox="0 0 260 320" xmlns="http://www.w3.org/2000/svg" aria-label="A dancing sunflower">
-    <!-- stem -->
-    <path d="M130 170 C124 220 136 270 130 315" stroke="#3a8f4f" stroke-width="9" fill="none" stroke-linecap="round"/>
-    <!-- leaves -->
-    <path class="leaf leaf-right" d="M132 255 C175 232 205 242 215 265 C180 276 152 272 132 255 Z" fill="#4caf63"/>
-    <path class="leaf leaf-left" d="M128 225 C85 202 55 212 45 235 C80 246 108 242 128 225 Z" fill="#4caf63"/>
-    <g transform="translate(130 110)">
-      <!-- back petals -->
-      <g class="petals-back" fill="#f5a800">
-        <ellipse rx="13" ry="38" cy="-62"/>
-        <ellipse rx="13" ry="38" cy="-62" transform="rotate(30)"/>
-        <ellipse rx="13" ry="38" cy="-62" transform="rotate(60)"/>
-        <ellipse rx="13" ry="38" cy="-62" transform="rotate(90)"/>
-        <ellipse rx="13" ry="38" cy="-62" transform="rotate(120)"/>
-        <ellipse rx="13" ry="38" cy="-62" transform="rotate(150)"/>
-        <ellipse rx="13" ry="38" cy="-62" transform="rotate(180)"/>
-        <ellipse rx="13" ry="38" cy="-62" transform="rotate(210)"/>
-        <ellipse rx="13" ry="38" cy="-62" transform="rotate(240)"/>
-        <ellipse rx="13" ry="38" cy="-62" transform="rotate(270)"/>
-        <ellipse rx="13" ry="38" cy="-62" transform="rotate(300)"/>
-        <ellipse rx="13" ry="38" cy="-62" transform="rotate(330)"/>
-      </g>
-      <!-- front petals -->
-      <g class="petals-front" fill="#ffd21f">
-        <ellipse rx="13" ry="38" cy="-62" transform="rotate(15)"/>
-        <ellipse rx="13" ry="38" cy="-62" transform="rotate(45)"/>
-        <ellipse rx="13" ry="38" cy="-62" transform="rotate(75)"/>
-        <ellipse rx="13" ry="38" cy="-62" transform="rotate(105)"/>
-        <ellipse rx="13" ry="38" cy="-62" transform="rotate(135)"/>
-        <ellipse rx="13" ry="38" cy="-62" transform="rotate(165)"/>
-        <ellipse rx="13" ry="38" cy="-62" transform="rotate(195)"/>
-        <ellipse rx="13" ry="38" cy="-62" transform="rotate(225)"/>
-        <ellipse rx="13" ry="38" cy="-62" transform="rotate(255)"/>
-        <ellipse rx="13" ry="38" cy="-62" transform="rotate(285)"/>
-        <ellipse rx="13" ry="38" cy="-62" transform="rotate(315)"/>
-        <ellipse rx="13" ry="38" cy="-62" transform="rotate(345)"/>
-      </g>
-      <!-- center -->
-      <circle r="42" fill="#6b3f1d"/>
-      <circle r="42" fill="none" stroke="#4a2a10" stroke-width="4"/>
-      <circle r="26" fill="#4a2a10" opacity="0.55"/>
-      <g fill="#2e1808">
-        <circle cx="0" cy="0" r="3"/>
-        <circle cx="12" cy="0" r="3"/><circle cx="-12" cy="0" r="3"/>
-        <circle cx="0" cy="12" r="3"/><circle cx="0" cy="-12" r="3"/>
-        <circle cx="8.5" cy="8.5" r="3"/><circle cx="-8.5" cy="8.5" r="3"/>
-        <circle cx="8.5" cy="-8.5" r="3"/><circle cx="-8.5" cy="-8.5" r="3"/>
-        <circle cx="24" cy="0" r="3"/><circle cx="-24" cy="0" r="3"/>
-        <circle cx="0" cy="24" r="3"/><circle cx="0" cy="-24" r="3"/>
-        <circle cx="17" cy="17" r="3"/><circle cx="-17" cy="17" r="3"/>
-        <circle cx="17" cy="-17" r="3"/><circle cx="-17" cy="-17" r="3"/>
-        <circle cx="30" cy="12" r="3"/><circle cx="-30" cy="12" r="3"/>
-        <circle cx="30" cy="-12" r="3"/><circle cx="-30" cy="-12" r="3"/>
-        <circle cx="12" cy="30" r="3"/><circle cx="-12" cy="30" r="3"/>
-        <circle cx="12" cy="-30" r="3"/><circle cx="-12" cy="-30" r="3"/>
-      </g>
-    </g>
-  </svg>
+  <header class="top">
+    <div class="top-inner">
+      <img src="icons/icon-192.png" alt="" width="44" height="44" class="logo">
+      <div class="titles">
+        <h1>Haze Tracker</h1>
+        <p id="updated" class="sub">Loading&hellip;</p>
+      </div>
+      <button id="refresh" class="icon-btn" type="button" aria-label="Refresh readings">
+        <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M20 12a8 8 0 1 1-2.3-5.7M20 4v5h-5"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <p id="banner" class="banner" role="status" hidden></p>
+
+    <section aria-labelledby="readings-h">
+      <h2 id="readings-h">Singapore right now</h2>
+      <ul id="regions" class="regions" aria-live="polite"></ul>
+      <p class="note">
+        <strong>24-hr PSI</strong> is NEA's headline Pollutant Standards Index, updated every hour.
+        <strong>1-hr PM2.5</strong> is the latest hourly fine-particle reading (&micro;g/m&sup3;), which reacts faster to sudden haze.
+        Data: NEA via data.gov.sg.
+      </p>
+    </section>
+
+    <section class="card" aria-labelledby="alerts-h">
+      <h2 id="alerts-h">Haze alert</h2>
+      <form id="alert-form" novalidate>
+        <label for="region">Region</label>
+        <select id="region">
+          <option value="north">North</option>
+          <option value="west">West</option>
+          <option value="central">Central</option>
+          <option value="east">East</option>
+          <option value="south">South</option>
+        </select>
+
+        <label for="threshold">Notify me when 24-hr PSI goes above</label>
+        <div class="threshold-row">
+          <input type="range" id="threshold-range" min="0" max="300" step="5" aria-label="PSI threshold slider">
+          <input type="number" id="threshold" min="0" max="500" step="1" inputmode="numeric">
+        </div>
+        <p id="threshold-hint" class="hint"></p>
+
+        <label class="switch-row" for="enabled">
+          <input type="checkbox" id="enabled">
+          <span>Send me notifications</span>
+        </label>
+
+        <button type="submit" class="primary">Save alert</button>
+        <p id="alert-status" class="hint" role="status"></p>
+      </form>
+
+      <button id="test-notif" class="secondary" type="button">Send a test notification</button>
+
+      <details>
+        <summary>How alerts work</summary>
+        <p>The app checks NEA's readings whenever it's open (every 5 minutes) and notifies you when your region's PSI moves above your threshold, and again when it drops back.</p>
+        <p>On Android Chrome, once the app is installed, it can also check in the background roughly once an hour if your phone allows it. On iPhone, alerts only arrive while the app is open, since iOS needs a push server for background alerts.</p>
+      </details>
+    </section>
+
+    <section id="install" class="card" hidden>
+      <h2>Add to your home screen</h2>
+      <p id="install-ios" hidden>On iPhone: tap the <strong>Share</strong> button in Safari, then <strong>Add to Home Screen</strong>. Open the app from there to turn on notifications.</p>
+      <div id="install-android" hidden>
+        <p>Install Haze Tracker like an app, with its own icon and full-screen view.</p>
+        <button id="install-btn" class="primary" type="button">Install app</button>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>Not an official NEA product. For official advice, see <a href="https://www.haze.gov.sg" target="_blank" rel="noopener">haze.gov.sg</a>.</p>
+  </footer>
+
+  <script src="core.js"></script>
+  <script src="app.js"></script>
 </body>
 </html>
